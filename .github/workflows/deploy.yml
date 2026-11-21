@@ -13,6 +13,9 @@ jobs:
       # 1. Check out the code
       - name: Checkout code
         uses: actions/checkout@v4
+      #1.5 setting github.repository_owner to lowercase
+      - name: Set lowercase owner
+        run: echo "OWNER_LC=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_ENV
 
       # 2. Log in to GitHub Container Registry
       - name: Log in to GHCR
@@ -29,8 +32,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ lowercase(github.repository_owner) }}/goodbye:latest
-            ghcr.io/${{ lowercase(github.repository_owner) }}/goodbye:${{ github.sha }}
+            ghcr.io/${{ env.OWNER_LC }}/goodbye:latest
+            ghcr.io/${{ env.OWNER_LC }}/goodbye:${{ github.sha }}
 
       # 4. Deploy to VPS via SSH
       - name: Deploy to VPS
