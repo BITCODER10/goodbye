@@ -562,8 +562,8 @@ public class FarewellMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // The 6-digit OTP code — unique per friend
-    @Column(nullable = false, unique = true, length = 6)
+    // The 8-digit OTP code — unique per friend
+    @Column(nullable = false, unique = true, length = 8)
     private String otp;
 
     // The friend's name (displayed on the farewell page)
@@ -617,7 +617,7 @@ public class FarewellMessage {
 ```
 
 **Why these fields?**
-- `otp` — The 6-digit code you'll text to each friend. Marked `unique` so no two friends can have the same OTP.
+- `otp` — The 8-digit code you'll text to each friend. Marked `unique` so no two friends can have the same OTP.
 - `recipientName` — Shown on the farewell page ("Dear Rahul, ...").
 - `message` — The actual farewell text. `TEXT` column type because some messages might be paragraphs long.
 - `opened` / `openedAt` — So you can see who has read their message. This is optional but fun — you'll know who opened yours!
@@ -700,9 +700,9 @@ public class FarewellController {
         // Clean the input: remove spaces, trim
         String cleanOtp = otp.trim().replaceAll("\\s+", "");
 
-        // Validate: must be exactly 6 digits
-        if (!cleanOtp.matches("\\d{6}")) {
-            model.addAttribute("error", "Please enter a valid 6-digit code.");
+        // Validate: must be exactly 8 digits
+        if (!cleanOtp.matches("\\d{8}")) {
+            model.addAttribute("error", "Please enter a valid 8-digit code.");
             return "otp";
         }
 
@@ -772,7 +772,7 @@ Create `src/main/resources/templates/otp.html`:
 <body class="otp-page">
     <div class="otp-container">
         <h1>You've received a message</h1>
-        <p class="subtitle">Enter the 6-digit code you were given to unlock it.</p>
+        <p class="subtitle">Enter the 8-digit code you were given to unlock it.</p>
 
         <!-- Show error message if OTP was invalid -->
         <div th:if="${error}" class="error-message">
@@ -783,9 +783,9 @@ Create `src/main/resources/templates/otp.html`:
             <div class="otp-input-group">
                 <input type="text"
                        name="otp"
-                       maxlength="6"
-                       pattern="\d{6}"
-                       placeholder="000000"
+                       maxlength="8"
+                       pattern="\d{8}"
+                       placeholder="00000000"
                        required
                        autofocus
                        autocomplete="off"
@@ -1687,7 +1687,7 @@ On your Mac, create a file called `messages.sql` in your project root (this won'
 
 ```sql
 -- Farewell Messages for the Goodbye Website
--- Each friend gets a unique 6-digit OTP
+-- Each friend gets a unique 8-digit OTP
 
 USE goodbye_db;
 
@@ -1725,9 +1725,9 @@ Stay curious, stay kind.', false);
 **Generate random OTPs:**
 
 ```bash
-# Generate 50 random 6-digit OTPs on your Mac
+# Generate 50 random 8-digit OTPs on your Mac
 for i in {1..50}; do
-  echo $(( RANDOM % 900000 + 100000 ))
+  echo $(( RANDOM % 90000000 + 10000000 ))
 done
 ```
 
@@ -1793,8 +1793,8 @@ On your phone or Mac browser:
 
 ### Step 12.2: Error Path Tests
 
-1. **Wrong OTP:** Enter `000000` — you should see the error message, not a crash
-2. **Non-numeric input:** Enter `abcdef` — should show "Please enter a valid 6-digit code"
+1. **Wrong OTP:** Enter `00000000` — you should see the error message, not a crash
+2. **Non-numeric input:** Enter `abcdefgh` — should show "Please enter a valid 8-digit code"
 3. **Empty submit:** Try submitting empty — the browser's HTML validation should catch it
 4. **Direct URL:** Visit `https://mrdesai.cloud/farewell/000000` — should redirect to the OTP page
 5. **Random paths:** Visit `https://mrdesai.cloud/anything` — should show the custom error page

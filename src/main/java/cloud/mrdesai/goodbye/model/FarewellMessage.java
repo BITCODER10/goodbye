@@ -11,8 +11,8 @@ public class FarewellMessage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // The 6-digit OTP code — unique per friend
-    @Column(nullable = false, unique = true, length = 6)
+    // The 8-digit OTP code — unique per friend
+    @Column(nullable = false, unique = true, length = 8)
     private String otp;
 
     // The friend's name (displayed on the farewell page)

@@ -9,7 +9,7 @@
 <body class="otp-page">
 <div class="otp-container">
     <h1>You've received a message</h1>
-    <p class="subtitle">Enter the 6-digit code you were given to unlock it.</p>
+    <p class="subtitle">Enter the 8-digit code you were given to unlock it.</p>
 
     <!-- Show error message if OTP was invalid -->
     <div th:if="${error}" class="error-message">
@@ -20,9 +20,9 @@
         <div class="otp-input-group">
             <input type="text"
                    name="otp"
-                   maxlength="6"
-                   pattern="\d{6}"
-                   placeholder="000000"
+                   maxlength="8"
+                   pattern="\d{8}"
+                   placeholder="00000000"
                    required
                    autofocus
                    autocomplete="off"

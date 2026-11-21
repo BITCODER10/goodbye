@@ -35,8 +35,8 @@ public class FarewellController {
         String cleanOtp = otp.trim().replaceAll("\\s+", "");
 
         // Validate: must be exactly 6 digits
-        if (!cleanOtp.matches("\\d{6}")) {
-            model.addAttribute("error", "Please enter a valid 6-digit code.");
+        if (!cleanOtp.matches("\\d{8}")) {
+            model.addAttribute("error", "Please enter a valid 8-digit code.");
             return "otp";
         }
 
