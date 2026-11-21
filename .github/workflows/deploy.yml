@@ -29,8 +29,8 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/goodbye:latest
-            ghcr.io/${{ github.repository_owner }}/goodbye:${{ github.sha }}
+            ghcr.io/${{ lowercase(github.repository_owner) }}/goodbye:latest
+            ghcr.io/${{ lowercase(github.repository_owner) }}/goodbye:${{ github.sha }}
 
       # 4. Deploy to VPS via SSH
       - name: Deploy to VPS
