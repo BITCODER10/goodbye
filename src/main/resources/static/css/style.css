@@ -1,0 +1,240 @@
+/* ============================================
+   FAREWELL WEBSITE — STYLES
+   ============================================ */
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- OTP Page --- */
+.otp-page {
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color: #e0e0e0;
+}
+
+.otp-container {
+    text-align: center;
+    padding: 3rem 2rem;
+    max-width: 420px;
+    width: 90%;
+}
+
+.otp-container h1 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #a0a0b0;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.otp-input-group input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 1rem;
+    font-family: 'Courier New', monospace;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    color: #ffffff;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.otp-input-group input:focus {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.otp-input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 1rem;
+}
+
+.btn-unlock {
+    margin-top: 1.5rem;
+    padding: 0.9rem 2.5rem;
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    letter-spacing: 1px;
+}
+
+.btn-unlock:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.error-message {
+    background: rgba(255, 80, 80, 0.15);
+    border: 1px solid rgba(255, 80, 80, 0.3);
+    border-radius: 8px;
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 1.5rem;
+    color: #ff9090;
+    font-size: 0.9rem;
+}
+
+/* --- Farewell Page --- */
+.farewell-page {
+    background: #faf6f0;
+    color: #2c2c2c;
+    padding: 2rem 1rem;
+}
+
+.farewell-container {
+    max-width: 650px;
+    width: 100%;
+}
+
+.letter {
+    background: #ffffff;
+    border: 1px solid #e8e0d4;
+    border-radius: 4px;
+    padding: 3rem 2.5rem;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+    position: relative;
+}
+
+/* Subtle decorative top border */
+.letter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #c9a96e, #d4b87a, #c9a96e);
+}
+
+.greeting {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #4a4a4a;
+    margin-bottom: 1.8rem;
+}
+
+.message-body {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #3a3a3a;
+    margin-bottom: 2rem;
+    white-space: pre-line;
+}
+
+.sign-off {
+    font-size: 1.1rem;
+    color: #5a5a5a;
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+.signature {
+    font-size: 1.3rem;
+    color: #2c2c2c;
+    margin-top: 0.3rem;
+    font-weight: 600;
+}
+
+/* --- Save as PDF Button --- */
+.actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn-save {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    background: #2c2c2c;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-save:hover {
+    background: #444444;
+}
+
+.save-hint {
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: #999;
+    font-style: italic;
+}
+
+/* --- Print Styles (for Save as PDF) --- */
+@media print {
+    /* Hide the button when printing */
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+    }
+
+    .farewell-page {
+        padding: 0;
+    }
+
+    .letter {
+        box-shadow: none;
+        border: none;
+        padding: 2rem 1rem;
+    }
+
+    .letter::before {
+        display: none;
+    }
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 480px) {
+    .otp-container h1 {
+        font-size: 1.4rem;
+    }
+
+    .otp-input-group input {
+        font-size: 1.5rem;
+        letter-spacing: 0.6rem;
+        padding: 0.8rem;
+    }
+
+    .letter {
+        padding: 2rem 1.5rem;
+    }
+
+    .greeting {
+        font-size: 1.3rem;
+    }
+
+    .message-body {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,24 @@
+# --- Java / Maven ---
+target/
+*.class
+*.jar
+*.war
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iml
+out/
+
+# --- Environment & Secrets ---
+.env
+
+# --- Claude Code memory (not part of the app) ---
+memory/
+MEMORY.md
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Docker (local volumes) ---
+mysql_data/

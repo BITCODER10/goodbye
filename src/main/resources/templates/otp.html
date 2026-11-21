@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Message For You</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="otp-page">
+<div class="otp-container">
+    <h1>You've received a message</h1>
+    <p class="subtitle">Enter the 6-digit code you were given to unlock it.</p>
+
+    <!-- Show error message if OTP was invalid -->
+    <div th:if="${error}" class="error-message">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form action="/enter" method="post">
+        <div class="otp-input-group">
+            <input type="text"
+                   name="otp"
+                   maxlength="6"
+                   pattern="\d{6}"
+                   placeholder="000000"
+                   required
+                   autofocus
+                   autocomplete="off"
+                   inputmode="numeric">
+        </div>
+        <button type="submit" class="btn-unlock">Unlock Message</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="'For ' + ${msg.recipientName}">For You</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="farewell-page">
+<div class="farewell-container">
+    <div class="letter">
+        <p class="greeting" th:text="'Dear ' + ${msg.recipientName} + ','">Dear Friend,</p>
+
+        <!-- th:text escapes HTML (XSS-safe), and white-space: pre-line
+             in the CSS handles line breaks visually — no <br> tags needed -->
+        <div class="message-body" th:text="${msg.message}">
+            Your message will appear here.
+        </div>
+
+        <p class="sign-off">With gratitude,</p>
+        <p class="signature">Swapnil</p>
+    </div>
+
+    <!-- Save as PDF button (hidden when printing) -->
+    <div class="actions no-print">
+        <button onclick="window.print()" class="btn-save">Save as PDF</button>
+        <p class="save-hint">Tip: In the print dialog, choose "Save as PDF" as the destination.</p>
+    </div>
+</div>
+</body>
+</html>

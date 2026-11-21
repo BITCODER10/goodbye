@@ -1,0 +1,43 @@
+services:
+  # --- MySQL Database ---
+  mysql:
+    image: mysql:8.0
+    container_name: goodbye-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: goodbye_db
+    volumes:
+      # Named volume — MySQL data persists even if the container is destroyed
+      # Without this, every container restart = empty database = all messages gone
+      - mysql_data:/var/lib/mysql
+    ports:
+      # Expose MySQL on port 3307 on the host (not 3306, in case the host
+      # already has MySQL running). You'll use this for direct DB access.
+      - "3307:3306"
+    healthcheck:
+      # Docker will check if MySQL is actually ready to accept connections
+      # WHY? MySQL takes a few seconds to initialize. Without a healthcheck,
+      # the Spring Boot app might start before MySQL is ready and crash.
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- Spring Boot Application ---
+  app:
+    image: ghcr.io/bitcoder10/goodbye:latest
+    container_name: goodbye-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD}
+    depends_on:
+      mysql:
+        # Wait for MySQL to be healthy, not just "started"
+        condition: service_healthy
+
+volumes:
+  mysql_data:
